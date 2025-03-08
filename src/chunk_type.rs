@@ -1,4 +1,5 @@
 use crate::{Error, Result};
+
 use std::{fmt, str::FromStr};
 use std::convert::TryFrom;
 
@@ -47,16 +48,20 @@ impl FromStr for ChunkType {
     type Err = Error;
     fn from_str(s: &str) -> Result<Self> {
         if s.len() != 4 {
-            return Err("Chunk type must be 4 characters long".into());
+            return Err(Box::new(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                "Chunk Type must be 4 characters long."
+            )));
         }
-
         let bytes = s.as_bytes();
         for &b in bytes {
             if !Self::is_valid_byte(b) {
-                return Err("Invalid byte".into());
+                return Err(Box::new(std::io::Error::new(
+                    std::io::ErrorKind::InvalidData,
+                    format!("Invalid character {} in chunk type.", b as char)
+                )));
             }
         }
-
         let array: [u8; 4] = bytes.try_into().unwrap();
         Ok(ChunkType { bytes: array })
     }
@@ -64,13 +69,13 @@ impl FromStr for ChunkType {
 
 impl fmt::Display for ChunkType {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", String::from_utf8(self.bytes.to_vec()).unwrap())
+        let s = std::str::from_utf8(&self.bytes).unwrap();
+        write!(f, "{}", s)
     }
 }
 
 impl TryFrom<[u8; 4]> for ChunkType {
     type Error = Error;
-
     fn try_from(bytes: [u8; 4]) -> Result<Self> {
         Ok(ChunkType { bytes })
     }
