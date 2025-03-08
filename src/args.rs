@@ -19,39 +19,26 @@ pub enum PngSpyArgs {
 
 #[derive(Debug, Parser)]
 pub struct EncodeArgs {
-    #[clap(short, long)]
-    pub input: PathBuf,
-
-    #[clap(short, long)]
+    pub file_path: PathBuf,
+    pub chunk_type: String,
     pub message: String,
-
     #[clap(short, long)]
-    pub output: PathBuf,
+    pub output: Option<PathBuf>,
 }
 
 #[derive(Debug, Parser)]
 pub struct DecodeArgs {
-    #[clap(short, long)]
-    pub input: PathBuf,
-
-    #[clap(short, long, default_value = "decoded_message.txt")]
-    pub output: PathBuf,
+    pub file_path: PathBuf,
+    pub chunk_type: String,
 }
 
 #[derive(Debug, Parser)]
 pub struct RemoveArgs {
-    #[clap(short, long)]
-    pub input: PathBuf,
-
-    #[clap(short, long)]
-    pub backup: bool,
+    pub file_path: PathBuf,
+    pub chunk_type: String,
 }
 
 #[derive(Debug, Parser)]
 pub struct PrintArgs {
-    #[clap(short, long)]
-    pub input: PathBuf,
-
-    #[clap(short, long)]
-    pub verbose: bool,
+    pub file_path: PathBuf,
 }

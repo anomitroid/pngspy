@@ -2,30 +2,34 @@ use crate::args;
 use crate::Result;
 
 pub fn handle_encode(args: args::EncodeArgs) -> Result<()> {
-    println!("Encoding message into PNG:");
-    println!("Input file: {:?}", args.input);
-    println!("Message: {}", args.message);
-    println!("Output file: {:?}", args.output);
+    println!("Encode command invoked:");
+    println!("  File path: {:?}", args.file_path);
+    println!("  Chunk type: {}", args.chunk_type);
+    println!("  Message: {}", args.message);
+    println!("  Output: {:?}", args.output);
+    // TODO: Add real encoding logic.
     Ok(())
 }
 
 pub fn handle_decode(args: args::DecodeArgs) -> Result<()> {
-    println!("Decoding message from PNG:");
-    println!("Input file: {:?}", args.input);
-    println!("Output file: {:?}", args.output);
+    println!("Decode command invoked:");
+    println!("  File path: {:?}", args.file_path);
+    println!("  Chunk type: {}", args.chunk_type);
+    // TODO: Add real decoding logic.
     Ok(())
 }
 
 pub fn handle_remove(args: args::RemoveArgs) -> Result<()> {
-    println!("Removing hidden data from PNG:");
-    println!("Input file: {:?}", args.input);
-    println!("Backup enabled: {}", args.backup);
+    println!("Remove command invoked:");
+    println!("  File path: {:?}", args.file_path);
+    println!("  Chunk type: {}", args.chunk_type);
+    // TODO: Add removal logic.
     Ok(())
 }
 
 pub fn handle_print(args: args::PrintArgs) -> Result<()> {
-    println!("Printing PNG information:");
-    println!("Input file: {:?}", args.input);
-    println!("Verbose mode: {}", args.verbose);
+    println!("Print command invoked:");
+    println!("  File path: {:?}", args.file_path);
+    // TODO: Add print logic.
     Ok(())
 } 
