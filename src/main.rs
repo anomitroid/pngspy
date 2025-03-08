@@ -1,6 +1,8 @@
 mod args;
 mod commands;
 mod chunk_type;
+mod chunk;
+mod crc;
 
 use clap::Parser;
 use args::Cli;
