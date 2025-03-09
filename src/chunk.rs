@@ -88,13 +88,25 @@ impl TryFrom<&[u8]> for Chunk {
 
         let mut crc_bytes = [0u8; 4];
         reader.read_exact(&mut crc_bytes)?;
-        let crc = u32::from_be_bytes(crc_bytes);
+        let crc_extracted = u32::from_be_bytes(crc_bytes);
+
+        let mut crc_input = Vec::new();
+        crc_input.extend_from_slice(&chunk_type.bytes());
+        crc_input.extend_from_slice(&data);
+        let crc_computed = crc32(&crc_input);
+
+        if crc_extracted != crc_computed {
+            return Err(Box::new(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                format!("CRC mismatch: computed = {:X}, extracted = {:X}", crc_computed, crc_extracted),
+            )));
+        }
 
         Ok(Chunk {
             length,
             chunk_type,
             data,
-            crc,
+            crc: crc_extracted,
         })
     }   
 }
