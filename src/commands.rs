@@ -54,13 +54,25 @@ pub fn handle_remove(args: RemoveArgs) -> Result<()> {
     println!("Remove command invoked:");
     println!("  File path: {:?}", args.file_path);
     println!("  Chunk type: {}", args.chunk_type);
-    // TODO: Add removal logic.
+
+    let mut png = Png::from_file(&args.file_path)?;
+    match png.remove_first_chunk(&args.chunk_type) {
+        Ok(_) => {
+            png.save(&args.file_path)?;
+            println!("Chunk {} removed successfully", args.chunk_type);
+        },
+        Err(e) => {
+            println!("Error removing chunk: {}", e);
+        }
+    }
     Ok(())
 }
 
 pub fn handle_print(args: PrintArgs) -> Result<()> {
     println!("Print command invoked:");
     println!("  File path: {:?}", args.file_path);
-    // TODO: Add print logic.
+
+    let png = Png::from_file(&args.file_path)?;
+    println!("{}", png);
     Ok(())
 } 
