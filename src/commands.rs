@@ -1,5 +1,9 @@
 use crate::args::{EncodeArgs, DecodeArgs, RemoveArgs, PrintArgs, Cli, PngSpyArgs};
 use crate::Result;
+use crate::png::Png;
+use crate::chunk::Chunk;
+use crate::chunk_type::ChunkType;
+use std::str::FromStr;
 
 pub fn run(args: Cli) -> Result<()> {
     match args.command {
@@ -16,7 +20,15 @@ pub fn handle_encode(args: EncodeArgs) -> Result<()> {
     println!("  Chunk type: {}", args.chunk_type);
     println!("  Message: {}", args.message);
     println!("  Output: {:?}", args.output);
-    // TODO: Add real encoding logic.
+    
+    let mut png = Png::from_file(&args.file_path)?;
+    let chunk_type = ChunkType::from_str(&args.chunk_type)?;
+    let data = args.message.into_bytes();
+    let new_chunk = Chunk::new(chunk_type, data);
+    png.append_chunk(new_chunk);
+    let output_path = args.output.unwrap_or(args.file_path);
+    png.save(&output_path)?;
+    println!("PNG file encoded successfully and saved to {:?}", output_path);
     Ok(())
 }
 
@@ -24,7 +36,17 @@ pub fn handle_decode(args: DecodeArgs) -> Result<()> {
     println!("Decode command invoked:");
     println!("  File path: {:?}", args.file_path);
     println!("  Chunk type: {}", args.chunk_type);
-    // TODO: Add real decoding logic.
+
+    let png = Png::from_file(&args.file_path)?;
+    if let Some(chunk) = png.chunk_by_type(&args.chunk_type) {
+        println!("Chunk found:");
+        println!("  Type: {}", chunk.chunk_type());
+        println!("  Data: {}", String::from_utf8_lossy(&chunk.data()));
+        let message = chunk.data_as_string()?;
+        println!("  EncodedMessage: {}", message);
+    } else {
+        println!("No chunk found with type {}", args.chunk_type);
+    }
     Ok(())
 }
 

@@ -1,5 +1,6 @@
-use std::fmt;
-use std::io::{BufReader, Read};
+use std::{fmt, fs};
+use std::io::{BufReader, Read, Write};
+use std::path::Path;
 
 use crate::chunk::Chunk;
 use crate::{Error, Result};
@@ -52,6 +53,18 @@ impl Png {
             bytes.extend_from_slice(&chunk.as_bytes());
         }
         bytes   
+    }
+
+    pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Self> {
+        let bytes = fs::read(path)?;
+        Self::try_from(bytes.as_ref())
+    }
+
+    pub fn save<P: AsRef<Path>>(&self, path: P) -> Result<()> {
+        let bytes = self.as_bytes();
+        let mut file = fs::File::create(path)?;
+        file.write_all(&bytes)?;
+        Ok(())
     }
 }
 
