@@ -1,3 +1,5 @@
+// src/chunks/chunk_type.rs
+
 use crate::error::{Error, Result};
 
 use std::{fmt, str::FromStr};

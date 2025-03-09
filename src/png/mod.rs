@@ -1,3 +1,5 @@
+// src/png/mod.rs
+
 use std::{fmt, fs};
 use std::io::{BufReader, Read, Write};
 use std::path::Path;

@@ -1,3 +1,5 @@
+// src/commands/mod.rs
+
 use crate::args::{EncodeArgs, DecodeArgs, RemoveArgs, PrintArgs, Cli, PngSpyArgs};
 use crate::Result;
 use crate::png::Png;

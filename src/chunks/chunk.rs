@@ -1,3 +1,5 @@
+// src/chunks/chunk.rs
+
 use crate::chunks::chunk_type::ChunkType;
 use crate::utils::crc::crc32;
 use crate::error::{Error, Result};

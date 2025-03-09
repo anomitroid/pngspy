@@ -1,3 +1,5 @@
+// src/lib.rs
+
 pub mod args;
 pub mod commands;
 pub mod chunks;

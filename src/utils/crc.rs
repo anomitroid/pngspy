@@ -1,3 +1,5 @@
+// src/utils/crc.rs
+
 #[allow(dead_code)]
 const fn generate_crc_table() -> [u32; 256] {
     let mut table = [0u32; 256];

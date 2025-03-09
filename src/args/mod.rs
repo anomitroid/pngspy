@@ -1,3 +1,5 @@
+// src/args/mod.rs
+
 use clap::Parser;
 use clap::Subcommand;
 use std::path::PathBuf;

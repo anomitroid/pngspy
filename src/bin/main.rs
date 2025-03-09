@@ -1,3 +1,5 @@
+// src/bin/main.rs
+
 use clap::Parser;
 use pngspy::args::Cli;
 use pngspy::commands::run;
