@@ -3,6 +3,7 @@ mod commands;
 mod chunk_type;
 mod chunk;
 mod crc;
+mod png;
 
 use clap::Parser;
 use args::Cli;
