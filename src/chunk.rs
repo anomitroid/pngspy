@@ -6,6 +6,7 @@ use std::fmt;
 use std::io::{BufReader, Read};
 
 #[allow(dead_code)]
+#[derive(Debug)]
 pub struct Chunk {
     length: u32,
     chunk_type: ChunkType,

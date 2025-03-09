@@ -5,6 +5,7 @@ use crate::chunk::Chunk;
 use crate::{Error, Result};
 
 #[allow(dead_code)]
+#[derive(Debug)]
 pub struct Png {
     chunks: Vec<Chunk>
 }
@@ -25,7 +26,10 @@ impl Png {
         if let Some(index) = self.chunks.iter().position(|chunk| chunk.chunk_type().to_string() == chunk_type) {
             Ok(self.chunks.remove(index))
         } else {
-            Err(format!("Chunk type {} not found", chunk_type).into())
+            Err(Box::new(std::io::Error::new(
+                std::io::ErrorKind::NotFound,
+                format!("Chunk type {} not found", chunk_type),
+            )))
         }
     }
     
@@ -58,7 +62,10 @@ impl TryFrom<&[u8]> for Png {
         let mut header = [0u8; 8];
         reader.read_exact(&mut header)?;
         if header != Png::STANDARD_HEADER {
-            return Err(format!("Invalid PNG header").into());
+            return Err(Box::new(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                "Invalid PNG header",
+            )));
         }
         let mut chunks = Vec::new();
         loop {
@@ -70,21 +77,21 @@ impl TryFrom<&[u8]> for Png {
                         break;
                     }
                     else {
-                        return Err(e.into());
+                        return Err(Box::new(e));
                     }
                 }
             }
             let length = u32::from_be_bytes(length_bytes);
-            let chunk_total_length = 4 + 4 + (length as usize) + 4;
+            let chunk_total_length = 4 + (length as usize) + 4;
             let mut chunk_bytes = vec![0u8; chunk_total_length];
             reader.read_exact(&mut chunk_bytes)?;
             let mut full_chunk = Vec::with_capacity(4 + chunk_total_length);
             full_chunk.extend_from_slice(&length_bytes);
             full_chunk.extend_from_slice(&chunk_bytes);
-            let chunk = Chunk::try_from(full_chunk.as_ref())?;
+            let chunk = Chunk::try_from(full_chunk.as_slice())?;
             chunks.push(chunk);
         }
-        Ok(Png::from_chunks(chunks))
+        Ok(Png { chunks })
     }
 }
 
