@@ -20,7 +20,7 @@ PNGSpy is a command-line tool designed to manipulate PNG files by encoding, deco
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/anomitroid/pngspy.git
    cd pngspy
    ```
 2. Build and install the project:
