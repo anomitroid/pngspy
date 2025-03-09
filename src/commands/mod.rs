@@ -1,8 +1,8 @@
 use crate::args::{EncodeArgs, DecodeArgs, RemoveArgs, PrintArgs, Cli, PngSpyArgs};
 use crate::Result;
 use crate::png::Png;
-use crate::chunk::Chunk;
-use crate::chunk_type::ChunkType;
+use crate::chunks::chunk::Chunk;
+use crate::chunks::chunk_type::ChunkType;
 use std::str::FromStr;
 
 pub fn run(args: Cli) -> Result<()> {

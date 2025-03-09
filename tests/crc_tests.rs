@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use pngspy::crc::crc32;
+    use pngspy::utils::crc::crc32;
 
     #[test]
     fn test_crc32_empty() {

@@ -2,7 +2,7 @@ use std::{fmt, fs};
 use std::io::{BufReader, Read, Write};
 use std::path::Path;
 
-use crate::chunk::Chunk;
+use crate::chunks::chunk::Chunk;
 use crate::{Error, Result};
 
 #[allow(dead_code)]

@@ -3,9 +3,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 
 pub mod args;
 pub mod commands;
-pub mod chunk_type;
-pub mod chunk;
-pub mod crc;
+pub mod chunks;
+pub mod utils;
 pub mod png;
+pub mod error;
 
 pub use commands::run;

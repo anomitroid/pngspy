@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use pngspy::chunk_type::ChunkType;
+    use pngspy::chunks::chunk_type::ChunkType;
     use std::convert::TryFrom;
     use std::str::FromStr;
 

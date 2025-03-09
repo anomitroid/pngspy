@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use pngspy::chunk::Chunk;
-    use pngspy::chunk_type::ChunkType;
+    use pngspy::chunks::chunk::Chunk;
+    use pngspy::chunks::chunk_type::ChunkType;
     use std::str::FromStr;
 
     fn testing_chunk() -> Chunk {
