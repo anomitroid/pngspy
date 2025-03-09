@@ -1,6 +1,6 @@
 use crate::chunks::chunk_type::ChunkType;
 use crate::utils::crc::crc32;
-use crate::{Error, Result};
+use crate::error::{Error, Result};
 use std::convert::TryFrom;
 use std::fmt;
 use std::io::{BufReader, Read};

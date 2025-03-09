@@ -1,4 +1,4 @@
-use crate::{Error, Result};
+use crate::error::{Error, Result};
 
 use std::{fmt, str::FromStr};
 use std::convert::TryFrom;

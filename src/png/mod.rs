@@ -3,7 +3,7 @@ use std::io::{BufReader, Read, Write};
 use std::path::Path;
 
 use crate::chunks::chunk::Chunk;
-use crate::{Error, Result};
+use crate::error::{Error, Result};
 
 #[allow(dead_code)]
 #[derive(Debug)]
