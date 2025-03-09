@@ -14,9 +14,19 @@ pub struct Cli {
 #[derive(Debug, Subcommand)]
 pub enum PngSpyArgs {
     Encode(EncodeArgs),
+    EncodeUrl(EncodeUrlArgs),
     Decode(DecodeArgs),
     Remove(RemoveArgs),
     Print(PrintArgs)
+}
+
+#[derive(Debug, Parser)]
+pub struct EncodeUrlArgs {
+    pub url: String,
+    pub chunk_type: String,
+    pub message: String,
+    #[clap(short, long)]
+    pub output: Option<PathBuf>,
 }
 
 #[derive(Debug, Parser)]

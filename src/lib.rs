@@ -6,6 +6,7 @@ pub mod chunks;
 pub mod utils;
 pub mod png;
 pub mod error;
+pub mod network;
 
 pub use commands::run;
 
